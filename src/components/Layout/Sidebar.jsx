@@ -10,7 +10,7 @@ function Sidebar({ posts = [] }) {
     <aside className="sidebar">
       {/* About section */}
       <div className="sidebar-section">
-        <h3>About CommunityHub</h3>
+        <h3>About AlumniHub</h3>
         <p>
           A place for developers to share ideas, ask questions, and learn
           together. Join our growing community!

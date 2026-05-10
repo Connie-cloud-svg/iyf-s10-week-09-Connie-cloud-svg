@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 function About() {
   return (
     <div className="page about-page">
-      <h1>About CommunityHub</h1>
+      <h1>About AlumniHub</h1>
 
       <section className="about-section">
-        <h2>What is CommunityHub?</h2>
+        <h2>What is AlumniHub?</h2>
         <p>
-          CommunityHub is a community platform for developers to share ideas, ask questions,
+          AlumniHub is an alumni platform for developers to share ideas, ask questions,
           and learn from each other. Built as a React project for IYF Weekend Academy Season 10.
         </p>
       </section>

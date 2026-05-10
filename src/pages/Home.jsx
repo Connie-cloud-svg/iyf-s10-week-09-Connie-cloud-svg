@@ -13,7 +13,7 @@ function Home() {
     <div className="page home-page">
       {/* Hero section */}
       <section className="hero">
-        <h1>Welcome to CommunityHub 🌐</h1>
+        <h1>Welcome to AlumniHub 🌐</h1>
         <p>A place for developers to share ideas, ask questions, and grow together.</p>
         <div className="hero-actions">
           <Link to="/posts" className="btn btn-primary">Browse Posts</Link>
