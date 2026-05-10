@@ -29,7 +29,7 @@ function Layout({ currentUser, onLogout, children }) {
     <div className="app">
       <header className="header">
         <div className="header-brand">
-          <NavLink to="/">🌐 CommunityHub</NavLink>
+          <NavLink to="/">🌐 AlumniHub</NavLink>
         </div>
 
         <nav className="header-nav">
