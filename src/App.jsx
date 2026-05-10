@@ -1,122 +1,130 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import { Routes, Route, NavLink, useNavigate } from 'react-router-dom';
+import { useState } from 'react';
+import useLocalStorage from './hooks/useLocalStorage';
 
-function App() {
-  const [count, setCount] = useState(0)
+// Pages
+import Home from './pages/Home';
+import Posts from './pages/Posts';
+import PostDetail from './pages/PostDetail';
+import CreatePost from './pages/CreatePost';
+import About from './pages/About';
+import Login from './pages/Login';
+import UserProfile from './pages/UserProfile';
+import NotFound from './pages/NotFound';
 
+// Shared components
+import ProtectedRoute from './components/shared/ProtectedRoute';
+
+// Exercise components
+import Timer from './components/exercises/Timer';
+import ApiSearch from './components/exercises/ApiSearch';
+import Tabs from './components/exercises/Tabs';
+
+import './App.css';
+
+// ── Layout component (wraps all pages) ─────────────────
+// Task 17.3 — uses NavLink which auto-adds "active" class
+function Layout({ currentUser, onLogout, children }) {
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+    <div className="app">
+      <header className="header">
+        <div className="header-brand">
+          <NavLink to="/">🌐 CommunityHub</NavLink>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
 
-      <div className="ticks"></div>
+        <nav className="header-nav">
+          <NavLink to="/" end className={({ isActive }) => isActive ? 'active' : ''}>Home</NavLink>
+          <NavLink to="/posts" className={({ isActive }) => isActive ? 'active' : ''}>Posts</NavLink>
+          <NavLink to="/about" className={({ isActive }) => isActive ? 'active' : ''}>About</NavLink>
+          <NavLink to="/exercises" className={({ isActive }) => isActive ? 'active' : ''}>Exercises</NavLink>
+        </nav>
 
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+        <div className="header-user">
+          {currentUser ? (
+            <>
+              <NavLink to="/profile" className="user-greeting">👤 {currentUser}</NavLink>
+              <button className="btn btn-secondary btn-small" onClick={onLogout}>Logout</button>
+            </>
+          ) : (
+            <NavLink to="/login" className="btn btn-primary btn-small">Login</NavLink>
+          )}
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
+      </header>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+      <main className="main-wrapper">{children}</main>
+
+      <footer className="footer">
+        <div className="footer-links">
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/about">About</NavLink>
+          <NavLink to="/posts">Posts</NavLink>
+        </div>
+        <p className="footer-copy">&copy; {new Date().getFullYear()} CommunityHub. All rights reserved.</p>
+      </footer>
+    </div>
+  );
 }
 
-export default App
+// ── Exercises page (all daily challenge demos) ──────────
+function Exercises() {
+  const tabData = [
+    { label: 'Tab One',   content: <p>Content for Tab One 🎉</p> },
+    { label: 'Tab Two',   content: <p>Content for Tab Two 🚀</p> },
+    { label: 'Tab Three', content: <p>Content for Tab Three 🌊</p> },
+  ];
+
+  return (
+    <div className="page exercises-page">
+      <h1>📚 Week 9 Daily Challenges</h1>
+      <div className="exercises-grid">
+        <Timer />
+        <ApiSearch />
+        <Tabs tabs={tabData} />
+      </div>
+    </div>
+  );
+}
+
+// ── Main App ────────────────────────────────────────────
+function App() {
+  // Task 18.1 — useLocalStorage: login persists across page refreshes
+  const [currentUser, setCurrentUser] = useLocalStorage('currentUser', null);
+  const [localPosts, setLocalPosts] = useState([]);
+
+  const navigate = useNavigate();
+
+  const handleLogin  = (username) => setCurrentUser(username);
+  const handleLogout = () => { setCurrentUser(null); navigate('/'); };
+  const handleCreatePost = (post) => setLocalPosts(prev => [post, ...prev]);
+
+  return (
+    <Layout currentUser={currentUser} onLogout={handleLogout}>
+      <Routes>
+        <Route path="/"          element={<Home />} />
+        <Route path="/posts"     element={<Posts />} />
+        <Route path="/posts/:postId" element={<PostDetail />} />
+        <Route path="/about"     element={<About />} />
+        <Route path="/exercises" element={<Exercises />} />
+        <Route path="/login"     element={<Login onLogin={handleLogin} />} />
+
+        {/* Day 4 — Protected route: redirects to /login if not logged in */}
+        <Route path="/create" element={
+          <ProtectedRoute isLoggedIn={!!currentUser}>
+            <CreatePost onCreatePost={handleCreatePost} />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/profile" element={
+          <ProtectedRoute isLoggedIn={!!currentUser}>
+            <UserProfile currentUser={currentUser} />
+          </ProtectedRoute>
+        } />
+
+        {/* 404 catch-all */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Layout>
+  );
+}
+
+export default App;
