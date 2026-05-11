@@ -5,7 +5,7 @@ import useLocalStorage from './hooks/useLocalStorage';
 // Pages
 import Home from './pages/Home';
 import Posts from './pages/Posts';
-import PostDetail from './pages/PostDetail';
+import PostDetail from './pages/Postdetail';
 import CreatePost from './pages/CreatePost';
 import About from './pages/About';
 import Login from './pages/Login';

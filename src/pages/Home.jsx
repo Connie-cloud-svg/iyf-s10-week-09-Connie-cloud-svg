@@ -5,9 +5,8 @@ import ErrorMessage from '../components/shared/ErrorMessage';
 
 function Home() {
   // Fetch 6 recent posts for the home page preview
-  const { data: posts, loading, error } = useFetch(
-    'https://dummyjson.com/posts?limit=6'
-  );
+const { data, loading, error } = useFetch('https://dummyjson.com/posts?limit=6');
+const posts = data?.posts || null;
 
   return (
     <div className="page home-page">

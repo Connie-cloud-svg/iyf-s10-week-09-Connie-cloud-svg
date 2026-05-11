@@ -8,9 +8,8 @@ function Posts() {
   const [searchTerm, setSearchTerm] = useState('');
 
   // Task 17.2 — Fetch posts from JSONPlaceholder API
-  const { data: posts, loading, error } = useFetch(
-    'https://dummyjson.com/posts?limit=30'
-  );
+const { data, loading, error } = useFetch('https://dummyjson.com/posts?limit=30');
+const posts = data?.posts || null;
 
   // Filter posts based on search term
   const filteredPosts = posts?.filter(post =>

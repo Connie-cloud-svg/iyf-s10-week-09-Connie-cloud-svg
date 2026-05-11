@@ -13,9 +13,9 @@ function PostDetail() {
     error: postError,
   } = useFetch(`https://dummyjson.com/posts/${postId}`);
 
-  const { data: comments, loading: commentsLoading } = useFetch(
-    `https://dummyjson.com/posts/${postId}/comments`,
-  );
+const { data: commentsData, loading: commentsLoading } =
+    useFetch(`https://dummyjson.com/posts/${postId}/comments`);
+const comments = commentsData?.comments || null;
 
   if (postLoading) return <LoadingSpinner text="Loading post..." />;
   if (postError) return <ErrorMessage message={postError} />;
@@ -43,17 +43,17 @@ function PostDetail() {
         )}
 
         {comments && (
-          <div className="comments-list">
-            {(comments.comments || comments).map((comment) => (
-              <div key={comment.id} className="comment-card">
-                <div className="comment-header">
-                  <strong>{comment.user?.username || comment.name}</strong>
-                </div>
-                <p>{comment.body}</p>
-              </div>
-            ))}
-          </div>
-        )}
+  <div className="comments-list">
+    {comments.map(comment => (
+      <div key={comment.id} className="comment-card">
+        <div className="comment-header">
+          <strong>{comment.user?.username || comment.name}</strong>
+        </div>
+        <p>{comment.body}</p>
+      </div>
+    ))}
+  </div>
+)}
       </section>
     </div>
   );
