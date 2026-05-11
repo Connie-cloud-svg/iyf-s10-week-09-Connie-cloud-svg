@@ -6,7 +6,7 @@
 - **Date:** May 06, 2026
 
 ## Project Description
-An upgraded version of CommunityHub built with advanced React concepts. Week 9 transforms the Week 8 static frontend into a fully multi-page application with real API data, custom hooks, React Router navigation, protected routes, and persistent login state. Posts are fetched live from the JSONPlaceholder API, and the app behaves like a real community platform with multiple pages, comments, user profiles, and form validation.
+An upgraded version of AlumniHub built with advanced React concepts. Week 9 transforms the Week 8 static frontend into a fully multi-page application with real API data, custom hooks, React Router navigation, protected routes, and persistent login state. Posts are fetched live from the JSONPlaceholder API, and the app behaves like a real community platform with multiple pages, comments, user profiles, and form validation.
 
 ## Technologies Used
 - React 18
@@ -69,5 +69,6 @@ An upgraded version of CommunityHub built with advanced React concepts. Week 9 t
 - **Login not persisting on refresh** — the initial `isLoggedIn` state was just `useState(false)`, so refreshing the page always logged the user out. Fixed by switching to the custom `useLocalStorage` hook which reads from and writes to `localStorage` automatically.
 - **NavLink active styles not applying** — `NavLink` requires a className function `({ isActive }) => isActive ? 'active' : ''` rather than a plain string, which was different from regular `Link` usage.
 
-## Screenshots (optional)
-![AlumniHub Screenshot](path/to/screenshot.png)
+## Screenshots
+![AlumniHub Screenshot](Images/HubScreenshot.png)
+![Daily Challenges Screenshot](Images/DailyChallenges.png)
