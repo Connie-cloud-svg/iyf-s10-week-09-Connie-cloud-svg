@@ -6,7 +6,7 @@ import ErrorMessage from '../components/shared/ErrorMessage';
 function Home() {
   // Fetch 6 recent posts for the home page preview
   const { data: posts, loading, error } = useFetch(
-    'https://jsonplaceholder.typicode.com/posts?_limit=6'
+    'https://dummyjson.com/posts?limit=6'
   );
 
   return (

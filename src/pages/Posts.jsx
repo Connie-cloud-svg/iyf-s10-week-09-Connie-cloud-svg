@@ -9,7 +9,7 @@ function Posts() {
 
   // Task 17.2 — Fetch posts from JSONPlaceholder API
   const { data: posts, loading, error } = useFetch(
-    'https://jsonplaceholder.typicode.com/posts'
+    'https://dummyjson.com/posts?limit=30'
   );
 
   // Filter posts based on search term
